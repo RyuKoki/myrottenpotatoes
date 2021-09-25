@@ -30,5 +30,7 @@
 		
 		```
 	- __Try to run server__
-		```rails server```
+		```
+		rails server
+		```
 		> Open your browser and type link : localhost:3000
