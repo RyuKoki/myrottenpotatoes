@@ -1,25 +1,3 @@
-insert your `code` here
-
-or insert your ```code``` here
-
-```
-code here
-```
-
-Javascript codeb lock
-
-```js
-// or custom highlight language
-console.log("Hello")
-```
-
-Java code block
-
-```java
-System.out.println("Java highlight");
-```
-
-
 ## How to use our codes
 
 1. Download all of code [here.](https://github.com/RyuKoki/myrottenpotatoes/archive/refs/heads/main.zip)
@@ -28,12 +6,14 @@ System.out.println("Java highlight");
 
 3. Run the following `commands` on your terminal : 
 	- __You have to user this `command` if you edit your Gemfile.__
-	'''bundle install'''
-	-__You should use `yarn` for re-checking all of coding files.__
-		'''
-		yarn install --check-files
+		```
+		bundle install
 		
-		'''
+		```
+	- __You should use `yarn` for re-checking all of coding files.__
+		```
+		yarn install --check-files
+		```
 	- __You should always tell sever to route if you change or edit path(s).__
 		```
 		rake routes
@@ -50,8 +30,5 @@ System.out.println("Java highlight");
 		
 		```
 	- __Try to run server__
-		```
-		rails server
-		
-		```
+		```rails server```
 		> Open your browser and type link : localhost:3000
