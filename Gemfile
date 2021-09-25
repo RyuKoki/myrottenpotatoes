@@ -47,3 +47,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # use Haml for templates
 gem 'haml'
+
+gem 'devise'
+gem "omniauth", "~> 1.9.1"
+gem 'omniauth-facebook'
+gem 'activerecord-session_store'
+gem "omniauth-rails_csrf_protection"
