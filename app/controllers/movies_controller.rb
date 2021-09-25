@@ -1,0 +1,81 @@
+class MoviesController < ApplicationController
+
+  ########## HOME PAGE ##########
+  def index
+    @movies = Movie.all
+  end
+
+  ########## SHOW DETAILS PAGE ##########
+  def show
+    begin
+      # find movie by id
+      id = params[:id]
+      @movie = Movie.find(id)
+      # show up app/views/movies/show.html.haml
+    rescue ActiveRecord::RecordNotFound
+      flash[:warning] = "Movie is not found."
+      redirect_to movies_path
+    end
+  end
+
+  # information for creating and updating movie's details
+  def movie_info
+    params.require(:movie).permit(:title, :rating, :release_date, :description)
+  end
+
+  ########## CREATE PAGE ##########
+  def new
+    @movie = Movie.new
+  end
+
+  def create 
+    # create movie by movie's info
+    @movie = Movie.new(movie_info)
+    if @movie.save
+      # if creation is successful, show up 'successful' message
+      flash[:notice] = "#{@movie.title} was successfully created."
+      # if creation is successful, redirect to home page
+      redirect_to movies_path
+    else
+      # if user doesn't type anything
+      render 'new'
+    end
+  end
+
+  ########## EDIT (UPDATE) PAGE ##########
+  def edit
+    # find movie by id
+    id = params[:id]
+    @movie = Movie.find(id)
+  end
+
+  def update
+    # find movie by id
+    id = params[:id]
+    @movie = Movie.find(id)
+    # update movie's details
+    if @movie.update_attributes(movie_info)
+      # if updation is successful, show up successful message
+      flash[:notice] = "#{@movie.title} was successfully updated."
+      # if updation is successful, redirect to show up movie's details
+      redirect_to @movie
+    else
+      # if user doesn't type anthing
+      render 'edit'
+    end
+  end
+
+  ########## DELETE MENU ##########
+  def destroy 
+    # find movie by id
+    id = params[:id]
+    @movie = Movie.find(id)
+    # delete movie
+    @movie.destroy
+    # if movie is deleted, show up successful message
+    flash[:notice] = "#{@movie.title} deleted."
+    # if movie is deleted, redirect to all lists of movies
+    redirect_to movies_path
+  end
+
+end
