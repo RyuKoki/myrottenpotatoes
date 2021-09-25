@@ -6,10 +6,7 @@
 
 3. Run the following `commands` on your terminal : 
 	__You have to user this `command` if you edit your Gemfile.__
-		```
-		bundle install
-		
-		```
+	```bundle install```
 	__You should use `yarn` for re-checking all of coding files.__
 		```
 		yarn install --check-files
