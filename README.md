@@ -8,7 +8,6 @@
 	- __You have to user this `command` if you edit your Gemfile.__
 		```
 		bundle install
-		
 		```
 	- __You should use `yarn` for re-checking all of coding files.__
 		```
@@ -17,17 +16,15 @@
 	- __You should always tell sever to route if you change or edit path(s).__
 		```
 		rake routes
-		
 		```
+		if it errors, type `rails webpacker:install` before.
 	- __Using migration__ *This is only for out project.*
 		```
 		rake db:migrate
-		
 		```
 	- __Using seed file for starting with a few of movies__ *This is only for out project.*
 		```
 		rake db:seed
-		
 		```
 	- __Try to run server__
 		```
