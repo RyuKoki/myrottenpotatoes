@@ -11,7 +11,8 @@ class MoviesController < ApplicationController
 
   ########## HOME PAGE ##########
   def index
-    @movies = Movie.all
+    @all_movies = Movie.all
+    @movies = @all_movies.order('title')
   end
 
   ########## SHOW DETAILS PAGE ##########
@@ -45,7 +46,7 @@ class MoviesController < ApplicationController
       # if creation is successful, show up 'successful' message
       flash[:notice] = "#{@movie.title} was successfully created."
       # if creation is successful, redirect to home page
-      redirect_to movies_path
+      redirect_to new_movie_review_path(@movie)
     else
       # if user doesn't type anything
       render 'new'
