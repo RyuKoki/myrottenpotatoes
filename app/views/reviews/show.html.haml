@@ -2,5 +2,21 @@
 
 %ul#details
   %li
-    Scores:
-    = @review.potatoes
+    My Review:
+    - if @status == false
+      = link_to 'Create Review', new_movie_review_path(@movie)
+      %br
+    - elsif @status == true
+      = @review_current_user.potatoes
+      %br
+        = link_to 'Edit my review', edit_movie_review_path(@movie, @review_current_user)
+        %br
+  %li
+    All Review:
+    %br
+      - @all_reviews_movie.each do |review|
+        = "#{review.user[:name]} : #{review.potatoes}"
+        %br
+
+= link_to "Back to movie's details", movie_path(@movie)
+

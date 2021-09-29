@@ -83,3 +83,6 @@ form label {
 br {
   margin: 10px 10px;
 }
+#login {
+  text-align: right;
+}

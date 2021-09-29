@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :has_moviegoer_and_movie, :only => [:new, :create]
+  before_action :has_moviegoer_and_movie, :only => [:new, :create, :show]
 
   protected
 
@@ -38,9 +38,36 @@ class ReviewsController < ApplicationController
       id_movie = params[:movie_id]
       #id_review = params[:id]
       @movie = Movie.find(id_movie)
-      @review = Review.find_by_movie_id(id_movie)
+      @all_reviews_movie = Review.where(movie_id: id_movie)
+      @review_current_user = @all_reviews_movie.find_by_user_id(@current_user[:id])
+      if @review_current_user == nil
+        @status = false
+      else
+        @status =true
+      end
     rescue ActionController::UrlGenerationError
       flash[:warning] = "You not have review."
+    end
+  end
+
+  ########## UPDATE REVIEW ##########
+  def edit
+    id_movie = params[:movie_id]
+    @movie = Movie.find(id_movie)
+    @all_reviews_movie = Review.where(movie_id: id_movie)
+    @review_current_user = @all_reviews_movie.find_by_user_id(@current_user[:id])
+  end
+
+  def update
+    id_movie = params[:movie_id]
+    @movie = Movie.find(id_movie)
+    @all_reviews_movie = Review.where(movie_id: id_movie)
+    @review_current_user = @all_reviews_movie.find_by_user_id(@current_user[:id])
+    if @review_current_user.update_attributes(review_info)
+      flash[:notice] = "#{@movie.title}'s review was successfully updated."
+      redirect_to movie_review_path(@movie, @all_reviews_movie)
+    else
+      render 'edit'
     end
   end
 

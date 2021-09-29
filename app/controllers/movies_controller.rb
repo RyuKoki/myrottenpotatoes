@@ -1,5 +1,14 @@
 class MoviesController < ApplicationController
 
+  before_action :require_login, :except => [:index, :show]
+
+  def require_login
+    unless @current_user
+      flash[:warning] = "You have to login first!!!"
+      redirect_to movies_path
+    end
+  end
+
   ########## HOME PAGE ##########
   def index
     @movies = Movie.all
