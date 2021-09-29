@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
       id = params[:id]
       @movie = Movie.find(id)
       # show up app/views/movies/show.html.haml
+      @review = Review.find_by_movie_id(id)
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "Movie is not found."
       redirect_to movies_path

@@ -7,9 +7,9 @@
     = csrf_meta_tags
 
   %body
-    = render :partial => 'login'
     %h1.headerer
       = link_to 'Rotten Potatoes', movies_path
+    = render :partial => 'movies/login'
     #main
       - if flash[:notice]
         #notice.message= flash[:notice]
