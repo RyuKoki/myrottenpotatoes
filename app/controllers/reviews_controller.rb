@@ -37,9 +37,7 @@ class ReviewsController < ApplicationController
     id_movie = params[:movie_id]
     @movie = Movie.find(id_movie)
     @all_reviews_movie = Review.where(movie_id: id_movie)
-
     @current_user.reviews << @movie.reviews.build(review_info)
-
     redirect_to movie_review_path(@movie, @all_reviews_movie)
   end
 
