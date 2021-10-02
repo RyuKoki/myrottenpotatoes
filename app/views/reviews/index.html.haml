@@ -14,7 +14,7 @@
     %h1 
       Comments
     - @all_reviews_movie.each do |review|
-      - if review.comments != nil
+      - if review.comments != "" 
         %p.comments
           = review.comments
         %p.username

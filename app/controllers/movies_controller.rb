@@ -91,13 +91,18 @@ class MoviesController < ApplicationController
 
 	def search_tmdb
 		@search_tmdb = params[:search_tmdb]
-		@movies = Movie.find_in_tmdb(@search_tmdb)
-		if @movies
-			render 'tmdb'
-		else
-			flash[:warning] = "'#{params[:search_tmdb]}' was not found in TMDb."
+		if @search_tmdb == ""
+			flash[:warning] = "You cannot blank"
 			redirect_to movies_path
-		end 
+		else 
+			@movies = Movie.find_in_tmdb(@search_tmdb)
+			if @movies != []
+				render 'tmdb'
+			else
+				flash[:warning] = "Sorry, No match for '#{params[:search_tmdb]}'"
+				redirect_to movies_path
+			end 
+		end
 	end
 
 	def create_from_tmdb
@@ -111,7 +116,7 @@ class MoviesController < ApplicationController
 		})
 		if @movie.save
 			flash[:notice] = "'#{@movie.title}' was successfully created."
-			redirect_to movies_path
+			redirect_to new_movie_review_path(@movie)
 		end
 	end
 

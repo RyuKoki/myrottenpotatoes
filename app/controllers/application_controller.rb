@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	require 'themoviedb'
-	Tmdb::Api.key("801745c09a4cfd42afe219c183f24f61")
+	Tmdb::Api.key("api")
 
 	def set_config
 		@configuration = Tmdb::Configuration.new
