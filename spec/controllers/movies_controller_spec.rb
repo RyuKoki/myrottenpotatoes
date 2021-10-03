@@ -48,6 +48,57 @@ describe MoviesController do
   end
   
 
+  describe 'add movie' do
+
+    describe 'With login ' do
+
+      before :each do
+        allow(controller).to receive(:require_login) #allow tester to loggin 
+        @mock_movie_attributes = {movie:{:title => 'Space Balls', :release_date => '24/6/1987', :rating => 'PG', :description => "testing"}} #mock up parameter 
+        @mock_movie_empty = {movie:{:title => nil , :release_date => '24/6/1987', :rating => 'PG', :description => "testing"}} #mock up none tilel
+      end
+
+      it 'Add movie to and save' do
+        expect{post :create, params: @mock_movie_attributes}.to change(Movie,:count).by(1) #check if database was increaseing 
+      end
+      
+      it "assigns the saved movie to @movie" do
+        post :create, params: @mock_movie_attributes #create to db 
+        expect(assigns(:movie).title).to include("Space Balls") #test for in db already 
+      end
+
+      it "redirects to the home page" do
+        post :create, params: @mock_movie_attributes  #creat to db
+        expect(response).to redirect_to(new_movie_review_path(movie_id:Movie.all.length)) #is that redirect to add review by it own review movie
+      end
+
+      describe 'edit' do
+        before :each do
+          
+          @fact_movie = FactoryGirl.create(:movie)
+        end
+    
+        it "edit movie" do
+          get :edit, params: {id: @fact_movie.id}     
+          expect(assigns(:movie).title)==("new")
+        end
+    
+        it "redirects to the movie page" do
+          post :show, params: {id: @fact_movie.id}    
+          expect(response).to render_template('show')
+        end
+        
+      end
   
+
+    end
+    
+    describe "Without Login" do 
+      it "Go to Movies path/Homepage" do
+        post :create 
+        expect(response).to redirect_to(movies_path)
+      end 
+    end
+  end 
   
 end
