@@ -72,9 +72,6 @@ group :test do
   gem 'launchy'          # a useful debugging aid for user stories
 end
 
-group :development, :test do
-  gem 'sqlite3'
-end
 
 group :production do
   gem 'pg'
