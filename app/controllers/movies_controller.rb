@@ -108,9 +108,17 @@ class MoviesController < ApplicationController
 	def create_from_tmdb
 		movie_id = params[:tmdb_id]
 		m = Movie.get_from_tmdb(movie_id)
+		releasing = Tmdb::Movie.releases(movie_id)
+		rating = ""
+		puts "sdadsadsadsa",movie_id,"asdsadsa"
+		releasing["countries"].each do |b|
+			if b["iso_3166_1"] == "US"
+				rating = b["certification"]
+			end 
+		end
 		@movie = Movie.new({
 						:title => m["title"], 
-						:rating => "",    
+						:rating => rating,    
 						:release_date => m["release_date"], 
 						:description => m["overview"]
 		})
